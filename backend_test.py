@@ -31,10 +31,11 @@ class CalculatorTester:
         try:
             # Change to app directory and compile
             result = subprocess.run(
-                ["javac", "-cp", ".", "src/calculator/*.java"],
+                ["javac", "src/calculator/*.java"],
                 cwd="/app",
                 capture_output=True,
-                text=True
+                text=True,
+                shell=True
             )
             
             success = result.returncode == 0
