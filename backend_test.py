@@ -274,10 +274,11 @@ public class ScientificCalculatorTest {
         # Compile test
         try:
             result = subprocess.run(
-                ["javac", "-cp", ".", "src/calculator/ScientificCalculatorTest.java"],
+                ["javac", "src/calculator/ScientificCalculatorTest.java"],
                 cwd="/app",
                 capture_output=True,
-                text=True
+                text=True,
+                shell=True
             )
             
             if result.returncode != 0:
