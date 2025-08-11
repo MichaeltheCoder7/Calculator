@@ -436,10 +436,11 @@ public class InterfaceTest {
         try:
             # Compile test
             result = subprocess.run(
-                ["javac", "-cp", ".", "src/calculator/InterfaceTest.java"],
+                ["javac", "src/calculator/InterfaceTest.java"],
                 cwd="/app",
                 capture_output=True,
-                text=True
+                text=True,
+                shell=True
             )
             
             if result.returncode != 0:
