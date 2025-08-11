@@ -79,17 +79,8 @@ public class CalculatorForm {
     private static final Color BUTTON_HOVER = new Color(100, 181, 246);
 
     public CalculatorForm() {
-        setupLookAndFeel();
         createUI();
         setupEventListeners();
-    }
-
-    private void setupLookAndFeel() {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeel());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private void createUI() {
@@ -116,7 +107,7 @@ public class CalculatorForm {
     private void styleTabPane(JTabbedPane tabbedPane) {
         tabbedPane.setBackground(PRIMARY_BLUE);
         tabbedPane.setForeground(WHITE);
-        tabbedPane.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        tabbedPane.setFont(new Font("SansSerif", Font.BOLD, 14));
     }
 
     private JPanel createSimpleCalculatorPanel() {
@@ -225,15 +216,15 @@ public class CalculatorForm {
         cosButton = createStyledButton("cos", PRIMARY_BLUE, WHITE, ButtonType.FUNCTION);
         tanButton = createStyledButton("tan", PRIMARY_BLUE, WHITE, ButtonType.FUNCTION);
         cButton1 = createStyledButton("C", DARK_BLUE, WHITE, ButtonType.CLEAR);
-        backspaceButton = createStyledButton("⌫", DARK_BLUE, WHITE, ButtonType.CLEAR);
+        backspaceButton = createStyledButton("Del", DARK_BLUE, WHITE, ButtonType.CLEAR);
 
         logButton = createStyledButton("log", PRIMARY_BLUE, WHITE, ButtonType.FUNCTION);
         lnButton = createStyledButton("ln", PRIMARY_BLUE, WHITE, ButtonType.FUNCTION);
-        sqrtButton = createStyledButton("√", PRIMARY_BLUE, WHITE, ButtonType.FUNCTION);
+        sqrtButton = createStyledButton("sqrt", PRIMARY_BLUE, WHITE, ButtonType.FUNCTION);
         button2 = createStyledButton("(", NAVY_BLUE, WHITE, ButtonType.OPERATOR);
         button9 = createStyledButton(")", NAVY_BLUE, WHITE, ButtonType.OPERATOR);
 
-        facButton = createStyledButton("n!", PRIMARY_BLUE, WHITE, ButtonType.FUNCTION);
+        facButton = createStyledButton("fac", PRIMARY_BLUE, WHITE, ButtonType.FUNCTION);
         modButton = createStyledButton("mod", PRIMARY_BLUE, WHITE, ButtonType.FUNCTION);
         JButton powerButton = createStyledButton("^", PRIMARY_BLUE, WHITE, ButtonType.OPERATOR);
         button29 = createStyledButton("/", PRIMARY_BLUE, WHITE, ButtonType.OPERATOR);
@@ -331,7 +322,7 @@ public class CalculatorForm {
 
     private JButton createStyledButton(String text, Color bgColor, Color fgColor, ButtonType type) {
         JButton button = new JButton(text);
-        button.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        button.setFont(new Font("SansSerif", Font.BOLD, 14));
         button.setBackground(bgColor);
         button.setForeground(fgColor);
         button.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -364,7 +355,7 @@ public class CalculatorForm {
 
     private JTextField createStyledTextField() {
         JTextField textField = new JTextField();
-        textField.setFont(new Font("Consolas", Font.BOLD, 24));
+        textField.setFont(new Font("Monospaced", Font.BOLD, 24));
         textField.setBackground(WHITE);
         textField.setForeground(NAVY_BLUE);
         textField.setBorder(BorderFactory.createCompoundBorder(
@@ -379,7 +370,7 @@ public class CalculatorForm {
 
     private JRadioButton createStyledRadioButton(String text, boolean selected) {
         JRadioButton radioButton = new JRadioButton(text, selected);
-        radioButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        radioButton.setFont(new Font("SansSerif", Font.BOLD, 12));
         radioButton.setBackground(LIGHT_BLUE);
         radioButton.setForeground(NAVY_BLUE);
         radioButton.setFocusPainted(false);
@@ -427,12 +418,8 @@ public class CalculatorForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String buttonText = ((JButton)e.getSource()).getText();
-                if (buttonText.equals("⌫")) {
+                if (buttonText.equals("Del")) {
                     buttonText = "Backspace";
-                } else if (buttonText.equals("√")) {
-                    buttonText = "sqrt";
-                } else if (buttonText.equals("n!")) {
-                    buttonText = "fac";
                 }
                 exprCalc.acceptInput(buttonText);
                 textField2.setText(exprCalc.getDisplayString());
@@ -479,12 +466,6 @@ public class CalculatorForm {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            try {
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeel());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
             frame = new JFrame("Blue Theme Calculator");
             CalculatorForm calcForm = new CalculatorForm();
             frame.setContentPane(calcForm.panel);
