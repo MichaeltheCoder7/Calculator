@@ -41,24 +41,28 @@ class CalculatorTester:
             # Check if class files were created
             class_files_exist = True
             expected_classes = [
-                "src/calculator/Calculator.class",
-                "src/calculator/CalculatorForm.class", 
-                "src/calculator/CalculatorInterface.class",
-                "src/calculator/ExprCalculator.class",
-                "src/calculator/Main.class"
+                "/app/src/calculator/Calculator.class",
+                "/app/src/calculator/CalculatorForm.class", 
+                "/app/src/calculator/CalculatorInterface.class",
+                "/app/src/calculator/ExprCalculator.class",
+                "/app/src/calculator/Main.class"
             ]
             
+            missing_files = []
             for class_file in expected_classes:
-                if not os.path.exists(f"/app/{class_file}"):
+                if not os.path.exists(class_file):
                     class_files_exist = False
-                    break
+                    missing_files.append(class_file)
             
             success = result.returncode == 0 and class_files_exist
             if success:
                 self.compilation_success = True
                 details = "All Java files compiled successfully"
             else:
-                details = f"Compilation issues: {result.stderr if result.stderr else 'Missing class files'}"
+                if missing_files:
+                    details = f"Missing class files: {missing_files}"
+                else:
+                    details = f"Compilation issues: {result.stderr if result.stderr else 'Unknown error'}"
                 
             return self.log_test("Java Compilation", success, details)
             
