@@ -152,10 +152,11 @@ public class SimpleCalculatorTest {
         # Compile test
         try:
             result = subprocess.run(
-                ["javac", "-cp", ".", "src/calculator/SimpleCalculatorTest.java"],
+                ["javac", "src/calculator/SimpleCalculatorTest.java"],
                 cwd="/app",
                 capture_output=True,
-                text=True
+                text=True,
+                shell=True
             )
             
             if result.returncode != 0:
